@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Big Board</title>
+  <!-- [if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif] -->
+  <link rel="stylesheet" href="bigboard.css" type="text/css" media="screen" />
+</head>
+<body class="demo">
+  <h1 id="bigBoardTitle"></h1>
+  <div id="container" class="variable-sizes clearfix"></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
+  <script src="isotope-site/jquery.isotope.js"></script>
+  <script src="jquery.jChartbeat.js" type="text/javascript"></script>
+  <script src="bigboard.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			bigBoard = new BigBoard('#container');
+			bigBoard.initialize('40910eea1c73cbb46b92966915faa72b');
+		});
+	</script>
+</body>
+</html>

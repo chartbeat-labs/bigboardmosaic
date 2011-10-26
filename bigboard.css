@@ -1,0 +1,243 @@
+/* Start: Recommended Isotope styles */
+
+/**** Isotope Filtering ****/
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/**** Isotope CSS3 transitions ****/
+
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+          transition-property:         transform, opacity;
+}
+
+/* End: Recommended Isotope styles */
+
+/**** disabling Isotope CSS3 transitions ****/
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item {
+  -webkit-transition-duration: 0s;
+     -moz-transition-duration: 0s;
+          transition-duration: 0s;
+}
+
+/* disable CSS transitions for containers with infinite scrolling*/
+.isotope.infinite-scrolling {
+  -webkit-transition: none;
+     -moz-transition: none;
+          transition: none;
+}
+
+
+/**** Base styles ****/
+
+html {
+	  overflow: hidden;
+}
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.7em;
+  background-color: #111;
+  background-image:url('nb_bgrnd.png');
+	background-repeat:no-repeat;
+  color: #FFF;
+}
+
+h1  {
+	text-align: left;
+	color: #999;
+  	padding-left: 10px;
+ 	border-bottom: 1px solid #000;
+	font-weight: lighter;
+}
+
+h1, h2, #super-list, .element, .tagline, #index-list {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+h1, h2, h3 { font-weight: bold; }
+
+h1 {
+  font-size: 25px;
+  line-height: 35px;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.1em;
+}
+
+ul, ol {
+  margin-left: 1.5em;
+}
+
+a,
+a code {
+  color: #FB4;
+  text-decoration: none;
+}
+
+a:hover,
+a:hover code { 
+  color: #4BF; 
+}
+
+a:active,
+a:active code {
+  color: #1FB;
+  background: black;
+}
+
+a img { border: none; }
+
+/**** Isotope styles ****/
+
+/* required for containers to inherit vertical size from window */
+html,
+body {
+   /* height: 100%; */
+}
+
+#container {
+  border: 0px solid #666;
+  padding: 0px;
+  margin: 0px;
+}
+
+.element {
+  width: 230px;
+  height: 170px; 
+  margin: 5px;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  background: #888;
+  color: #222;
+}
+
+
+/*blaze colours 
+/*.element.internal		{  background: rgba(  114, 35, 19, 0.8); }  darker red */
+/*.element.internal		{  background: rgba(  142, 41, 25, 0.8); }  /* dark red */
+/*.element.links		{  background: rgba(  191, 54, 4, 0.8); }  /* bright red/orang */
+/*.element.search  	{  background: rgba(  115, 31, 1, 0.7); }  /* red */
+/*.element.social		{  background: rgba(  242, 135, 5, 0.8); }  /* bright orange*/
+/*.element.direct		{  background: rgba(  252, 184, 96, 0.8);  } /* yellow */
+/*.element.na			{  background: rgba(  142, 41, 25, 0.8);  }  
+
+
+/* Newsbeat theme */
+.element.direct	{  background: rgba(  246, 138, 70, 0.8); }
+.element.internal	{ background: rgba(  242, 223, 187, 0.8); }	
+.element.links		{  background: rgba(  106, 175, 214, 0.8); }
+.element.people	{ background: rgba(  153, 153, 153, 0.8); }
+.element.search	{  background: rgba(  120, 194, 121, 0.8); }
+.element.social	{  background: rgba(  177, 173, 211, 0.8); }
+.element.na		{  background: rgba(  60, 86, 104, 0.8);  }
+
+
+/* dark blue: 55, 78, 89, 0.8 */
+
+
+.element * {
+  position: absolute;
+  margin: 0;
+}
+
+/* title */
+.element .symbol {
+  position: static;
+  font-size: 2.1em;
+  line-height: 1.0em;
+  margin: 1.5% 3px 3px 5px;
+  color: #FFF;
+}
+.element.large .symbol {
+  font-size: 4.5em;
+}
+
+.element.fake .symbol {
+  color: #000;
+}
+
+/* fat magnitude */
+.element .name {
+  left: 3.1em;
+  top: 0.1em;
+  font-size: 3.05em;
+  color: hsla(0,0%,0%,0);
+}
+
+/* actives */
+.element .weight {
+  position: static;
+  font-size: 2.5em; 
+  margin: 7% 3px 8px 5px;
+}
+
+/* section */
+.element .number {
+  font-size: 1.25em;
+  font-weight: bold;
+  color: hsla(0,0%,0%,.2);
+  right: 0.2em;
+  top: 12%;
+}
+
+
+
+/* >> The Magnificent CLEARFIX: Updated to prevent margin-collapsing on child elements << j.mp/bestclearfix */
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
+.clearfix:after { clear: both; }
+/* fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
+.clearfix { zoom: 1; }
+
+
