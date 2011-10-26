@@ -120,6 +120,10 @@ BigBoard.prototype.updateElementDisplay = function (page) {
     'width': size.w,
     'height': size.h
   });
+  pageEl.find('h3.weight').css({'font-size' :  size.afs + 'em'});
+  pageEl.find('p.number').css({'font-size' :  size.pfs + 'em'});
+  pageEl.find('h3.symbol').css({'font-size' :  size.fs + 'em'});
+  console.log(pageEl.attr('class', 'element ' + page.mag.src + ' isotope-item'));
 };
 
 BigBoard.prototype.createPageElement = function (page) {
