@@ -32,7 +32,7 @@ BigBoard.prototype.initialize = function (a,h) {
   var self_ = this;
   self_.setGrid();
   self_.host = this.getQueryParamValue('host');
-  if (!self_.host) self_.host = h
+  if (!self_.host) console.log(self_.host = h);
   self_.apikey = this.getQueryParamValue('apikey');
   if (!self_.apikey) self_.apikey = a;
 
