@@ -22,20 +22,23 @@ BigBoard = function (containerElement) {
   };
 
   this.grid = null;
-  this.site = '';
+  this.host = '';
   this.totalActives = 0;
   this.pages = {};
   this.fetchInterval = null;
 };
 
-BigBoard.prototype.initialize = function (apiKey) {
+BigBoard.prototype.initialize = function (a,h) {
   var self_ = this;
   self_.setGrid();
-  self_.site = this.getQueryParamValue('site');
+  self_.host = this.getQueryParamValue('host');
+  if (!self_.host) self_.host = h
+  self_.apikey = this.getQueryParamValue('apikey');
+  if (!self_.apikey) self_.apikey = a;
 
   $.jChartbeat({
-    apikey: apiKey,
-    host: self_.site
+    apikey: self_.apikey,
+    host: self_.host
   });
 
   self_.dom.window.bind('resize', function () {
@@ -76,7 +79,7 @@ BigBoard.prototype.displayTopPages = function (dash, topPages) {
   var self_ = this;
   window.pages = self_.pages;
   self_.totalActives = 0;
-  self_.dom.title.text(self_.site);
+  self_.dom.title.text(self_.hos);
 
   var newPages = {};
   $.each(topPages.pages, function (i, page) {
@@ -123,7 +126,7 @@ BigBoard.prototype.updateElementDisplay = function (page) {
   pageEl.find('h3.weight').css({'font-size' :  size.afs + 'em'});
   pageEl.find('p.number').css({'font-size' :  size.pfs + 'em'});
   pageEl.find('h3.symbol').css({'font-size' :  size.fs + 'em'});
-  console.log(pageEl.attr('class', 'element ' + page.mag.src + ' isotope-item'));
+  pageEl.attr('class', 'element ' + page.mag.src + ' isotope-item');
 };
 
 BigBoard.prototype.createPageElement = function (page) {
@@ -154,8 +157,8 @@ BigBoard.prototype.setGrid = function () {
 BigBoard.prototype.isNotHomepage = function (path) {
   // This could be done better
   return path !== '/' && 
-         path !== this.site && 
-         path !== this.site + '/' && 
+         path !== this.host && 
+         path !== this.host + '/' && 
          path !== "/home-page" && 
          path !== "global.nytimes.com/" && 
          path !== "time.com/time/" && 
