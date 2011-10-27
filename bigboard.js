@@ -132,13 +132,19 @@ BigBoard.prototype.updateElementDisplay = function (page) {
 BigBoard.prototype.createPageElement = function (page) {
   var size = this.calculateSize(page.stats.people);
   var section = this.getSection(page.sections);
+  var url = '';
+  if (page.path.search(this.host) == -1) 
+	url = this.host + page.path;
+  else 
+	url = page.path;
+
   var newEl = [
     '<div class="element ', page.mag.src, '" style="width: ', size.w, 'px; height: ', size.h, 'px;">',
       '<p class="number" style="font-size: ', size.pfs, 'em;">', section, '</p>',
       '<h3 class="weight" style="font-size: ', size.afs, 'em;">',
         page.stats.people,
       '</h3>',
-      '<a href="http://', page.path, '" target="_blank">',
+      '<a href="http://', url, '" target="_blank">',
         '<h3 class="symbol" style="font-size: ', size.fs, 'em;">', page.title, '</h3>',
       '</a>',
       '<h2 class="name">', page.mag.src, page.mag.cls, '</h2>',
