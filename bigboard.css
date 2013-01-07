@@ -164,16 +164,6 @@ body {
 }
 
 
-/*blaze colours 
-/*.element.internal		{  background: rgba(  114, 35, 19, 0.8); }  darker red */
-/*.element.internal		{  background: rgba(  142, 41, 25, 0.8); }  /* dark red */
-/*.element.links		{  background: rgba(  191, 54, 4, 0.8); }  /* bright red/orang */
-/*.element.search  	{  background: rgba(  115, 31, 1, 0.7); }  /* red */
-/*.element.social		{  background: rgba(  242, 135, 5, 0.8); }  /* bright orange*/
-/*.element.direct		{  background: rgba(  252, 184, 96, 0.8);  } /* yellow */
-/*.element.na			{  background: rgba(  142, 41, 25, 0.8);  }  
-
-
 /* Newsbeat theme */
 .element.direct	{  background: rgba(  246, 138, 70, 0.8); }
 .element.internal	{ background: rgba(  242, 223, 187, 0.8); }	
