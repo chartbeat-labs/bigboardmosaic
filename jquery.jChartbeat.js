@@ -73,12 +73,12 @@
          histogram:     '/histogram/',
          pages:         '/pages/',
          pathSummary:   '/pathsummary/',
-         quickstats:    '/quickstats/',
+         quickstats:    '/live/quickstats/v3/',
          recent:        '/recent/',
          snapshots:     '/snapshots/',
          stats:         '/stats/',
          summary:       '/summary/',
-         topPages:      '/toppages/',
+         topPages:      '/live/toppages/v3/',
 		 topGroups:      '/topgroups/',
 		 dash:      '/dash/'
     };
