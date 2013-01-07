@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="bigboard.css" type="text/css" media="screen" />
 </head>
 <body class="demo">
-  <h1 id="bigBoardTitle"></h1>
+  <div id="header"><h1 id="bigBoardTitle"></h1><ul id="groupList"></ul><span id="pause"></span></div>
   <div id="container" class="variable-sizes clearfix"></div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
@@ -19,7 +19,7 @@
 		$(function () {
 			bigBoard = new BigBoard('#container');
 			bigBoard.initialize('4bbb5a03ffbd1d760ecf0ba8d9f27ef7','businessinsider.com');
-		});
+		});			
 	</script>
 
     <script type="text/javascript">
