@@ -6,6 +6,7 @@ BigBoard = function (containerElement) {
 	groupElement: $('.groupElement'),
 	pause: $('#pause'),
     window: $(window)
+
   };
 
   this.isotopeConfig = {
