@@ -35,6 +35,7 @@ BigBoard = function (containerElement) {
   this.grid = null;
   this.host = '';
   this.totalActives = 0;
+  this.totalAvgEngaged = 0;
   this.els = {};
   this.groupArr = [];
   this.fetchInterval = null;
@@ -54,6 +55,8 @@ BigBoard.prototype.initialize = function (a,h) {
 	self_.sections = s.split(",");
     self_.counter = self_.sections.length;
   }
+  e = this.getQueryParamValue('engagement');
+  if (!self_.engagement) self_.eng = e;
 
   self_.dom.title.text(self_.host);
 
@@ -202,12 +205,14 @@ BigBoard.prototype.displayElements = function (topElements) {
 	var self_ = this;
 	window.els = self_.els;
 	self_.totalActives = 0;
+	self_.totalAvgEngaged = 0;
 	
 	var newEls = {};
 	if (topElements.pages) {
 		$.each(topElements.pages, function (i, page) {
 	    if (self_.isNotHomepage(page.path)) {
 	      self_.totalActives += page.stats.people;
+	      self_.totalAvgEngaged += page.stats.engaged_time.avg;
 	    }
 	  });
 	  $.each(topElements.pages, function (i, page) {
@@ -217,7 +222,11 @@ BigBoard.prototype.displayElements = function (topElements) {
 	      if (self_.els[page.path]) {
 	        newEls[page.path]['element'] = self_.els[page.path]['element'];
 	        newEls[page.path]['inserted'] = true;
-	        newEls[page.path]['element'].find('.weight').text(page.stats.people);
+	        if (self_.eng) {
+	        	newEls[page.path]['element'].find('.weight').text(self_.formatSecs(page.stats.engaged_time.avg));
+	        } else {
+	        	newEls[page.path]['element'].find('.weight').text(page.stats.people);
+	        }
 	        self_.updateElementDisplay(newEls[page.path]);
 	        delete self_.els[page.path];
 	      } else {
@@ -231,6 +240,7 @@ BigBoard.prototype.displayElements = function (topElements) {
 	if (topElements.groups) {
 		$.each(topElements.groups, function (i, group) {
 		    self_.totalActives += group.people;
+	      	self_.totalAvgEngaged += group.engaged_time.avg;
 		});	
 		$.each(topElements.groups, function (i, group) {
 			newEls[group.group] = group;		
@@ -238,8 +248,13 @@ BigBoard.prototype.displayElements = function (topElements) {
 			if (self_.els[group.group]) {
 				newEls[group.group]['element'] = self_.els[group.group]['element'];
 				newEls[group.group]['inserted'] = true;
-				newEls[group.group]['element'].find('.weight').text(group.people);
-				newEls[group.group]['element'].find('.number').text(group.pages + ' pgs');
+				if (self_.eng) {
+					newEls[group.group]['element'].find('.weight').text(self_.formatSecs(group.engaged_time.avg));
+					newEls[group.group]['element'].find('.number').text(group.pages + ' pgs');
+				} else {
+					newEls[group.group]['element'].find('.weight').text(group.people);
+					newEls[group.group]['element'].find('.number').text(group.pages + ' pgs');
+				}
 				self_.updateElementDisplay(newEls[group.group]);
 				delete self_.els[group.group];		
 			}
@@ -288,12 +303,22 @@ BigBoard.prototype.drawHeader = function () {
 }
 
 BigBoard.prototype.updateElementDisplay = function (el) {
+  self_ = this;
   var pageEl = el.element;
   var size;
-  if (el.stats)
-	 size = this.calculateSize(el.stats.people);
-  else if (el.people)
-  	 size = this.calculateSize(el.people);
+  if (el.stats) {
+  	if (self_.eng ) {
+	 size = this.calculateSize(el.stats.engaged_time.avg,this.totalAvgEngaged);
+	} else {
+	 size = this.calculateSize(el.stats.people,this.totalActives);
+	}
+  } else if (el.people) {
+  	if (self_.eng ) {
+  	 size = this.calculateSize(el.engaged_time.avg,this.totalAvgEngaged);
+  	} else {
+  	 size = this.calculateSize(el.people,this.totalActives);
+  	}
+  }
   
   pageEl.css({
     'width': size.w,
@@ -308,7 +333,12 @@ BigBoard.prototype.updateElementDisplay = function (el) {
 
 
 BigBoard.prototype.createPageElement = function (page) {
-  var size = this.calculateSize(page.stats.people);
+  var size;
+  if (self_.eng)
+  	size = this.calculateSize(page.stats.engaged_time.avg,this.totalAvgEngaged);
+  else
+  	size = this.calculateSize(page.stats.people,this.totalActives);
+
   var section = this.getSection(page.sections);
   var url = '';
   if (page.path.search(this.host) == -1) 
@@ -320,7 +350,7 @@ BigBoard.prototype.createPageElement = function (page) {
     '<div class="element ', page.mag.src, '" style="width: ', size.w, 'px; height: ', size.h, 'px;">',
       '<p class="number" style="font-size: ', size.pfs, 'em;">', section, '</p>',
       '<h3 class="weight" style="font-size: ', size.afs, 'em;">',
-        page.stats.people,
+        (self_.eng ? self_.formatSecs(page.stats.engaged_time.avg): page.stats.people),
       '</h3>',
       '<a href="http://', url, '" target="_blank">',
         '<h3 class="symbol" style="font-size: ', size.fs, 'em;">', page.title, '</h3>',
@@ -333,13 +363,17 @@ BigBoard.prototype.createPageElement = function (page) {
 };
 
 BigBoard.prototype.createGroupElement = function (group) {
-  var size = this.calculateSize(group.people);
+  var size;
+  if (self_.eng)
+  	size = this.calculateSize(group.engaged_time.avg,this.totalAvgEngaged);
+  else
+  	size = this.calculateSize(group.people,this.totalActives);
 
   var newEl = [
     '<div class="element ', group.mag.src, '" style="width: ', size.w, 'px; height: ', size.h, 'px;">',
       '<p class="number" style="font-size: ', size.pfs, 'em;">', group.pages, ' pgs</p>',
       '<h3 class="weight" style="font-size: ', size.afs, 'em;">',
-        group.people,
+        (self_.eng ? self_.formatSecs(group.engaged_time.avg):group.people),
       '</h3>',
         '<h3 class="symbol" style="font-size: ', size.fs, 'em;">', group.group, '</h3>',
       '<h2 class="name">',group.pages,'</h2>',
@@ -457,9 +491,10 @@ BigBoard.prototype.updateHeader = function () {
   }
 }
 
-BigBoard.prototype.calculateSize = function (actives) {
+BigBoard.prototype.calculateSize = function (num, max) {
+  if (!max) max = this.totalActives;
   var size = {}; 
-  var proportion = actives / this.totalActives;
+  var proportion = num / max;
   var numSquares = proportion * this.grid;
   var w = Math.round(Math.sqrt(numSquares));
 
@@ -497,3 +532,9 @@ BigBoard.prototype.getSection = function (sections) {
   }
 
 };
+
+BigBoard.prototype.formatSecs = function (secs) {
+	var mins = Math.floor(secs/60);
+	secs = Math.floor(secs % 60);
+	return mins + ":" + (secs < 10 ? "0" + secs: secs)
+}
