@@ -54,13 +54,13 @@
     * The base url that is prepended to all real-time API requests
     * @type {string}
     */
-   $.jChartbeat.realTimeBaseUrl = 'http://api.chartbeat.com';
+   $.jChartbeat.realTimeBaseUrl = '//api.chartbeat.com';
 
    /**
     * The base url that is prepended to all historical API requests
     * @type {string}
     */
-   $.jChartbeat.historicalBaseUrl = 'http://chartbeat.com/dashapi';
+   $.jChartbeat.historicalBaseUrl = '//chartbeat.com/dashapi';
 
    /**
     * Paths to different API's
