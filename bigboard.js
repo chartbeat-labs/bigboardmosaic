@@ -394,11 +394,13 @@ BigBoard.prototype.isNotHomepage = function (path) {
   return path !== '/' && 
          path !== this.host && 
          path !== this.host + '/' && 
+         path !== this.host + '/?source=refresh' &&
+         path !== this.host + '?source=refresh' &&
          path !== "online.wsj.com/home-page" && 
          path !== "global.nytimes.com/" && 
          path !== "time.com/time/" && 
-		 path !== "nbcnews.com/" && 
-		 path !== "washingtonpost.com/regional" && 
+	 path !== "nbcnews.com/" && 
+	 path !== "washingtonpost.com/regional" && 
          path !== "blog.gawker.com/";
 };
 
